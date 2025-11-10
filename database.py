@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import os
 
-db_url = "postgresql://postgres:nick123@localhost:5432/app"
+db_url = os.getenv("DATABASE_URL")
 
 engine = create_engine(db_url)
 session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -13,20 +13,4 @@ def get_db():
     try:
         yield db
     finally:
-=======
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-db_url = "postgresql://postgres:nick123@localhost:5432/app"
-
-engine = create_engine(db_url)
-session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-def get_db():
-    db = session()
-    try:
-        yield db
-    finally:
->>>>>>> 3ed5567 (Initial commit)
         db.close()
