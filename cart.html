@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,3 +48,54 @@
   
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Shopping Cart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cart.css">
+  
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <h1 class="nav-title">E-Commerce Platform</h1>
+      <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html" class="active">Cart</a>
+        <span id="user-info"></span>
+        <button id="logout">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Your Shopping Cart</h1>
+
+    <section id="cart-items" class="cart-grid">
+      <!-- Dynamic items will be inserted by cart.js -->
+      <p>Loading your cart...</p>
+    </section>
+
+    <!-- Cart Summary Section -->
+    <section id="cart-summary" class="summary-card">
+      <h2>Cart Summary</h2>
+      <div class="summary-details">
+        <p><strong>Total Items:</strong> <span id="total-items">-</span></p>
+        <p><strong>Total Price:</strong> <span id="total-price">$0</span></p>
+      </div>
+      <button id="checkout-btn" class="checkout-btn">Checkout</button>
+    </section>
+  </main>
+
+  <script src="cart.js?v=2"></script>
+
+  
+</body>
+</html>
+>>>>>>> 3ed5567 (Initial commit)

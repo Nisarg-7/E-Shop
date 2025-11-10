@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,3 +53,59 @@
   <script src="payment.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+   <nav class="navbar">
+    <div class="navbar-container">
+      <h1 class="navbar-title">ShopEase</h1>
+      <ul class="navbar-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="payment-container">
+    <h2>Complete Your Payment</h2>
+    <p class="payment-desc">Please fill in your details below to proceed with your order.</p>
+
+    <!-- Payment Options -->
+    <div id="paymentOptions">
+      <button id="cardOption" class="btn primary-btn">Pay with Card</button>
+      <button id="upiOption" class="btn secondary-btn">Pay with UPI</button>
+    </div>
+
+    <!-- Card Payment Form -->
+    <form id="cardForm" class="hidden">
+      <h3>Card Payment</h3>
+      <input type="text" placeholder="Cardholder Name" required>
+      <input type="text" placeholder="Card Number" maxlength="16" required>
+      <div class="row">
+        <input type="text" placeholder="MM/YY" maxlength="5" required>
+        <input type="text" placeholder="CVV" maxlength="3" required>
+      </div>
+      <button type="submit" class="btn pay-btn">Pay Now</button>
+    </form>
+
+    <!-- UPI Payment Form -->
+    <form id="upiForm" class="hidden">
+      <h3>UPI Payment</h3>
+      <input type="text" placeholder="Enter UPI ID (e.g. name@upi)" required>
+      <button type="submit" class="btn pay-btn">Pay Now</button>
+    </form>
+  </div>
+
+  <script src="payment.js"></script>
+</body>
+</html>
+>>>>>>> 3ed5567 (Initial commit)

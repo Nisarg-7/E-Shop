@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,4 +251,258 @@
 
 </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce App</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <main>
+        <h1>E-Commerce Platform</h1>
+
+        <div class="button-group">
+            <button id="show-register">Register</button>
+            <button id="show-login">Login</button>
+            <button id="call-protected">Call Protected</button>
+            <button id="logout">Logout</button>
+        </div>
+
+        <section id="messages"></section>
+
+        <section id="register-section" class="form-section" style="display:none;">
+            <h2>Create Account</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-username">Username</label>
+                    <input id="reg-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email</label>
+                    <input id="reg-email" name="email" type="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input id="reg-password" name="password" type="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-role">Role</label>
+                    <input id="reg-role" name="role" value="buyer" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-address">Address</label>
+                    <input id="reg-address" name="address">
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">Phone Number</label>
+                    <input id="reg-phone" name="phone_number">
+                </div>
+                <button type="submit" class="submit-button">Create Account</button>
+            </form>
+        </section>
+
+        <section id="login-section" class="form-section" style="display:none;">
+            <h2>Login to Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input id="login-email" name="email" type="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input id="login-password" name="password" type="password" required>
+                </div>
+                <button type="submit" class="submit-button">Login</button>
+            </form>
+        </section>
+
+        <section id="protected-result" style="margin-top:18px;"></section>
+    </main>
+    <div id="shopSection" style="display:none;">
+  <h2>Shop</h2>
+
+  <label for="categorySelect">Filter by Category:</label>
+  <select id="categorySelect">
+    <option value="">All Categories</option>
+  </select>
+
+  <div id="productList"></div>
+</div>
+
+
+    <script>
+    // Simple frontend for register/login against the FastAPI backend
+    const API_BASE = 'http://localhost:8000'
+
+    const $ = sel => document.querySelector(sel)
+    const messages = $('#messages')
+    const registerSection = $('#register-section')
+    const loginSection = $('#login-section')
+    const protectedResult = $('#protected-result')
+
+    function showMessage(msg, isError = true) {
+        messages.textContent = msg
+        messages.style.color = isError ? '#b00' : '#0b6'
+        setTimeout(()=>{ messages.textContent = '' }, 5000)
+    }
+
+    $('#show-register').addEventListener('click', ()=>{
+        registerSection.style.display = 'block'
+        loginSection.style.display = 'none'
+    })
+    $('#show-login').addEventListener('click', ()=>{
+        registerSection.style.display = 'none'
+        loginSection.style.display = 'block'
+    })
+
+    // Basic registration
+    $('#register-form').addEventListener('submit', async (e)=>{
+        e.preventDefault()
+        const form = e.target
+        const payload = {
+            username: form.username.value.trim(),
+            email: form.email.value.trim(),
+            password: form.password.value,
+            role: form.role.value || 'buyer',
+            address: form.address.value || '',
+            phone_number: form.phone_number.value || ''
+        }
+
+        try {
+            const res = await fetch(API_BASE + '/user/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+
+            if (!res.ok) {
+                const err = await res.json().catch(()=>({detail:res.statusText}))
+                showMessage('Register failed: ' + (err.detail || JSON.stringify(err)))
+                return
+            }
+
+            const data = await res.json()
+            showMessage('Registered successfully. You can now login.', false)
+            // auto-switch to login
+            $('#show-login').click()
+        } catch (err) {
+            showMessage('Network error: ' + err.message)
+        }
+    })
+
+    // Login uses the OAuth2 password flow on the backend which expects form-encoded fields: username & password
+    $('#login-form').addEventListener('submit', async (e)=>{
+        e.preventDefault()
+        const form = e.target
+        const email = form.email.value.trim()
+        const password = form.password.value
+
+        const params = new URLSearchParams()
+        // backend expects form_data.username to match the user.email
+        params.append('username', email)
+        params.append('password', password)
+
+        try {
+            const res = await fetch(API_BASE + '/login/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString()
+            })
+
+            if (!res.ok) {
+                const err = await res.json().catch(()=>({detail:res.statusText}))
+                showMessage('Login failed: ' + (err.detail || JSON.stringify(err)))
+                return
+            }
+
+            const data = await res.json()
+            if (data.access_token) {
+                console.log('Login successful, got token:', data.access_token)
+                localStorage.setItem('access_token', data.access_token)
+                showMessage('Login successful! Redirecting...', false)
+                protectedResult.textContent = ''
+                window.location.href = './home.html';
+                
+                // Immediate redirect attempt
+                try {
+                    console.log('Attempting redirect to home page...')
+                    window.location.replace('/home.html')
+                } catch (err) {
+                    console.error('Direct redirect failed:', err)
+                    // Fallback to timeout-based redirect
+                    setTimeout(() => {
+                        console.log('Attempting fallback redirect...')
+                        try {
+                            window.location.href = './home.html'
+                        } catch (err) {
+                            console.error('Fallback redirect failed:', err)
+                            alert('Please manually navigate to home.html')
+                        }
+                    }, 1000)
+                }
+            } else {
+                console.error('No access token in response:', data)
+                showMessage('Login did not return access token')
+            }
+        } catch (err) {
+            showMessage('Network error: ' + err.message)
+        }
+    })
+
+    // Call protected endpoint to verify token
+    $('#call-protected').addEventListener('click', async ()=>{
+        const token = localStorage.getItem('access_token')
+        if (!token) { showMessage('No token found. Please login.'); return }
+
+        try {
+            const res = await fetch(API_BASE + '/protected', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+            const data = await res.json()
+            if (!res.ok) {
+                showMessage('Protected call failed: ' + (data.detail || res.statusText))
+                return
+            }
+            protectedResult.textContent = JSON.stringify(data)
+            showMessage('Protected call succeeded', false)
+        } catch (err) {
+            showMessage('Network error: ' + err.message)
+        }
+    })
+
+    $('#logout').addEventListener('click', ()=>{
+        localStorage.removeItem('access_token')
+        showMessage('Logged out', false)
+        protectedResult.textContent = ''
+    })
+
+    // show login by default
+    $('#show-login').click()
+
+    async function loadCategories() {
+  try {
+    const res = await fetch("http://127.0.0.1:8000/category");
+    const categories = await res.json();
+    const categorySelect = document.getElementById("categorySelect");
+
+    categories.forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat.id;
+      option.textContent = cat.name;
+      categorySelect.appendChild(option);
+    });
+  } catch (err) {
+    console.error("Error loading categories:", err);
+  }
+}
+
+
+
+</script>
+</body>
+>>>>>>> 3ed5567 (Initial commit)
 </html>
