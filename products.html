@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce - Products</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="products.css">
+    
+</head>
+<body>
+        
+
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <h1 class="nav-title">E-Commerce Platform</h1>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="products.html" class="active">Products</a>
+                <a href="cart.html">Cart</a>
+                <a href="product-detail.html">Product Details</a>
+                <span id="user-info"></span>
+                <button id="logout">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="products-main">
+        <div class="sidebar">
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Search products...">
+            </div>
+            
+            <div class="filter-section">
+                <h3>Categories</h3>
+                <div id="category-filters"></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="top-bar">
+                <h2>Products</h2>
+                <button id="add-product" class="primary-button">Add Product</button>
+            </div>
+
+            <div class="products-grid" id="products-container">
+                <!-- Products will be inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Product Modal -->
+    <div id="product-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-name">Name</label>
+                    <input type="text" id="product-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price</label>
+                    <input type="number" id="product-price" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-quantity">Quantity</label>
+                    <input type="number" id="product-quantity" name="quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-size">Size</label>
+                    <input type="text" id="product-size" name="size">
+                </div>
+                <div class="form-group">
+                    <label for="product-color">Color</label>
+                    <input type="text" id="product-color" name="color">
+                </div>
+                <div class="form-group">
+                    <label for="product-category">Category</label>
+                    <select id="product-category" name="category_id" required>
+                        <!-- Categories will be loaded here -->
+                    </select>
+                <div class="form-group">
+                    <label for="product-stock-status">Stock Status</label>
+                    <select id="product-stock-status" name="stock_status" required>
+                        <option value="true">In Stock</option>
+                        <option value="false">Out of Stock</option>
+                    </select>
+                </div>
+                <!--<div class="form-group">
+                    <label for="product-images">Images</label>
+                    <input type="file" id="product-images" name="images" multiple accept="image/*">
+                </div>
+                <div class="button-group">-->
+                    <button type="submit" class="submit-button">Save Product</button>
+                    <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+<script src="products.js"></script>  
+</body>
+</html>

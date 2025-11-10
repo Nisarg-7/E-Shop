@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | E-Shop</title>
+  <link rel="stylesheet" href="checkout.css" />
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <h1 class="logo">E-Shop</h1>
+    </div>
+    <div class="nav-right">
+      <a href="cart.html">🛒 Cart</a>
+      <a href="checkout.html" class="active">💳 Checkout</a>
+      <button id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CHECKOUT CONTAINER ===== -->
+  <main class="checkout-container">
+    <h2>Checkout</h2>
+
+    <div class="cart-items" id="cartItems">
+        <!-- Dynamic cart items will be loaded here -->
+    </div>
+      
+    <div class="summary">
+      <h3>Total Amount: <span id="totalAmount">$0</span></h3>
+      <button id="proceedToPaymentBtn">Proceed to Payment</button>
+    </div>
+  </main>
+
+  <!-- ===== PAYMENT MODAL ===== -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Payment Method</h2>
+      <p>Select a payment option:</p>
+
+      <div class="payment-options">
+        <button class="pay-btn">💳 Pay with Card</button>
+        <button class="pay-btn">📱 Pay with UPI</button>
+      </div>
+
+      <p class="mock-note">*This is a mock payment gateway (for demo only).</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 E-Shop | Designed with ❤️ for seamless shopping</p>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+      themeToggle.textContent = "☀️";
+    }
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      const isDark = body.classList.contains("dark");
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    // === Load checkout items dynamically ===
+    document.addEventListener("DOMContentLoaded", () => {
+      const cartContainer = document.getElementById("cartItems");
+      const totalAmountEl = document.getElementById("totalAmount");
+      const proceedBtn = document.getElementById("proceedToPaymentBtn");
+
+      // Get items from localStorage
+      const checkoutItems = JSON.parse(localStorage.getItem("checkoutItems")) || [];
+
+      // If no items, show empty message
+      if (checkoutItems.length === 0) {
+        cartContainer.innerHTML = `<p style="text-align:center;">Your cart is empty.</p>`;
+        totalAmountEl.textContent = "$0";
+        return;
+      }
+
+      // Render all cart items
+      let total = 0;
+      cartContainer.innerHTML = "";
+      checkoutItems.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="item-details">
+            <h3>${item.name}</h3>
+            <p>Price: $${item.price}</p>
+            <p>Qty: ${item.quantity}</p>
+          </div>
+          <div class="item-total">$${itemTotal}</div>
+        `;
+        cartContainer.appendChild(div);
+      });
+
+      // Update total
+      totalAmountEl.textContent = `$${total}`;
+
+      // Proceed to payment button click
+      proceedBtn.addEventListener("click", () => {
+        window.location.href = "payment.html";
+      });
+    });
+  </script>
+</body>
+</html>

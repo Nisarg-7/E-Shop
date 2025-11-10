@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transactions - E-Commerce</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #f5f6fa;
+      color: #333;
+    }
+
+    nav {
+      background: #2d3436;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+    }
+
+    nav .nav-links a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 10px;
+      padding: 20px 30px;
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2d3436;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      background: #f1f2f6;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .summary div {
+      text-align: center;
+    }
+
+    .transaction-list {
+      margin-top: 20px;
+    }
+
+    .transaction-card {
+      border: 1px solid #dfe6e9;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #ffffff;
+      transition: transform 0.2s;
+    }
+
+    .transaction-card:hover {
+      transform: scale(1.02);
+    }
+
+    .transaction-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      background: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #74b9ff;
+    }
+
+    .make-payment {
+      text-align: center;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>E-Commerce Platform</h1>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="review.html">Reviews</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Transaction History</h2>
+
+    <div class="summary">
+      <div>
+        <h3>Total Spent</h3>
+        <p id="total-spent">$0</p>
+      </div>
+      <div>
+        <h3>Last Transaction</h3>
+        <p id="last-transaction">-</p>
+      </div>
+      <div>
+        <h3>Total Transactions</h3>
+        <p id="transaction-count">0</p>
+      </div>
+    </div>
+
+    <div class="make-payment">
+      <button class="btn" id="simulate-payment">Simulate New Payment</button>
+    </div>
+
+    <div class="transaction-list" id="transaction-list">
+      <!-- Transactions will load here -->
+    </div>
+  </div>
+
+  <script src="transaction.js"></script>
+  
+</body>
+</html>

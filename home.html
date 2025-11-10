@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Home</title>
+  <link rel="stylesheet" href="home.css">
+  
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <h1 class="logo">E-Shop</h1>
+    </div>
+    <div class="nav-center">
+      <input type="text" id="searchBar" placeholder="Search products..." />
+    </div>
+    <div class="nav-right">
+      <a href="index.html">Login</a>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="transaction.html">Transactions</a>
+      <a href="dashboard.html">Dashboard</a>
+      <button id="themeToggle">🌙</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h2>Welcome to E-Shop</h2>
+    <p>Discover top-rated products, manage your orders, and shop with ease.</p>
+  </header>
+
+
+  <!--<main class="features">
+    <div class="feature-card" onclick="location.href='products.html'">
+      <h3>🛍️ Browse Products</h3>
+      <p>Explore our collection of top-quality products.</p>
+    </div>
+    <div class="feature-card" onclick="location.href='cart.html'">
+      <h3>🛒 Your Cart</h3>
+      <p>Review and manage items you’ve added to your cart.</p>
+    </div>
+    <div class="feature-card" onclick="location.href='transactions.html'">
+      <h3>💳 Transactions</h3>
+      <p>Check your purchase transactions and payments.</p>
+    </div>
+    <div class="feature-card" onclick="location.href='history.html'">
+      <h3>📜 Order History</h3>
+      <p>View your complete order and activity history.</p>
+    </div>
+    <div class="feature-card" onclick="location.href='review.html'">
+      <h3>⭐ Reviews</h3>
+      <p>Read and write reviews for your favorite products.</p>
+    </div>
+  </main>-->
+
+  <section class="product-section">
+  <h2>Top Picks for You</h2>
+  <div id="productList" class="product-grid"></div>
+</section>
+<section id="productList"></section>
+
+<script src="home.js"></script>
+
+
+  <footer class="footer">
+    <p>© 2025 E-Shop | Designed with ❤️ for seamless shopping</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+      themeToggle.textContent = "☀️";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      const isDark = body.classList.contains("dark");
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  </script>
+  
+</body>
+</html>

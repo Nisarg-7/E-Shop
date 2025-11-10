@@ -1,0 +1,95 @@
+/* Make product management area scrollable */
+#manage-products-section {
+  max-height: 400px;        /* adjust as per your screen */
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+/* Optional: style the table for clarity */
+#admin-products-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#admin-products-table th, 
+#admin-products-table td {
+  padding: 8px;
+  text-align: center;
+}
+
+#admin-products-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+/* === Admin two-column layout (dashboard) === */
+.admin-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+/* left = add product */
+.admin-left {
+  flex: 0 0 38%;      /* fixed-ish width so form doesn't dominate */
+  background: #fff;
+  padding: 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  max-height: 68vh;   /* prevents it from growing too tall */
+  overflow-y: auto;
+}
+
+/* right = list + manage table */
+.admin-right {
+  flex: 1 1 60%;
+  background: #fff;
+  padding: 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  max-height: 68vh;
+  overflow-y: auto;
+}
+
+/* make the Add Product modal content scroll inside the left column if long */
+.admin-left .modal-content {
+  max-height: 56vh;
+  overflow-y: auto;
+}
+
+/* manage products section */
+#manage-products-section {
+  margin-top: 10px;
+}
+
+/* admin table styles */
+#admin-products-table th,
+#admin-products-table td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+#admin-products-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* Make buttons stay visible and not wrap */
+#admin-products-table button {
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* responsive: stack columns on narrow screens */
+@media (max-width: 900px) {
+  .admin-container {
+    flex-direction: column;
+  }
+  .admin-left, .admin-right {
+    max-height: none;
+  }
+}
